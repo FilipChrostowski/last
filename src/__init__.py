@@ -21,6 +21,13 @@ Package structure
 - ``src.models`` defines all domain entities and configuration parameters.
 - ``src.manager`` provides orchestration and reporting logic on top of models.
 
+Manager fields
+--------------
+- ``apartments`` (dict[str, Apartment]): loaded apartment records keyed by the apartment identifier.
+- ``tenants`` (dict[str, Tenant]): loaded tenant records keyed by the tenant identifier.
+- ``transfers`` (list[Transfer]): payment transactions used to calculate income, deposits, and debtors.
+- ``bills`` (list[Bill]): billing records used to compute total apartment costs and settlements.
+
 How the package is used
 -----------------------
 Typical flow:
@@ -35,6 +42,14 @@ Data is loaded from JSON files in the ``data/`` directory, then transformed into
 typed model instances. This keeps business operations explicit and easier to
 test than working with raw dictionaries.
 
+Args:
+----
+    year (int): The year for which to calculate the balance.
+
+Returns:
+-------
+    float: The annual balance.
+
 Highlights
 ----------
 - Strongly typed domain models for safer data handling.
@@ -45,5 +60,6 @@ Highlights
 Authors
 ------
 Łukasz Kułacz - initial implementation, testing, documentation
+Filip Chrostowski - code review, refactoring, additional tests, documentation
 
 """
