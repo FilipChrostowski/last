@@ -42,6 +42,31 @@ Data is loaded from JSON files in the ``data/`` directory, then transformed into
 typed model instances. This keeps business operations explicit and easier to
 test than working with raw dictionaries.
 
+Usage Examples
+--------------
+
+Initialize the manager with configuration and load data:
+
+    from src.models import Parameters
+    from src.manager import Manager
+    params = Parameters(apartments_json_path="data/apartments.json", ...)
+    mgr = Manager(params)
+
+Calculate annual financial balance for a specific year:
+
+        balance = mgr.get_annual_balance(year=2023)
+    print(f"Annual balance: {balance} PLN")
+
+Identify debtors for an apartment in a given month:
+
+    debtors = mgr.get_debtors(apartment_key="A01", year=2023, month=6)
+    print(f"Debtors: {debtors}")
+
+Retrieve and split apartment settlement costs among tenants:
+
+    settlement = mgr.get_settlement(apartment_key="A02", year=2023, month=6)
+    tenants_settlements = mgr.create_tenants_settlements(settlement)
+
 Args:
 ----
     year (int): The year for which to calculate the balance.
